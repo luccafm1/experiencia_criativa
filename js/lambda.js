@@ -123,9 +123,9 @@ function tokenize(str) {
                 i++;
             }
             tokens.push({ type: 'number', value: num });
-        } else if (/[a-zA-Z_]/.test(c)) {
+        } else if (/[a-zA-Z_+\-\/:*]/.test(c)) {
             let varName = '';
-            while (i < str.length && /[\w_]/.test(str[i])) {
+            while (i < str.length && /[a-zA-Z_+\-\/:*]/.test(str[i])) {
                 varName += str[i];
                 i++;
             }
@@ -353,7 +353,7 @@ function showSyntaxTree() {
         const term = parse(expressionToParse);
         const syntaxTree = getSyntaxTree(term);
 
-        outputDiv.innerHTML = `${term}<br>${syntaxTree}`; 
+        outputDiv.innerHTML = `${syntaxTree}`; 
     } catch (error) {
         errorDiv.textContent = `Error: ${error.message}`;
         outputDiv.textContent = '';

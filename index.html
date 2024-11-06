@@ -15,7 +15,7 @@
                     const beforeCursor = textarea.value.slice(0, cursorPosition);
                     const afterCursor = textarea.value.slice(cursorPosition);
 
-                    const updatedText = beforeCursor.replace(/\blambda\b/g, 'λ') + afterCursor;
+                    const updatedText = beforeCursor.replace(/\blambda\b|\\/g, 'λ') + afterCursor;
 
                     if (updatedText !== textarea.value) {
                         textarea.value = updatedText;
