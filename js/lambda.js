@@ -268,6 +268,10 @@ function freeVariables(term) {
     throw new Error("Unknown term type in free_variables");
 }
 
+function freshVariableName(){
+    
+}
+
 let counter = 0;
 function freshVariableName(base = 'x') {
     return `${base}${++counter}`;
@@ -296,9 +300,6 @@ function substitute(term, variable, replacement) {
     }
     throw new Error("Unknown term type in substitution");
 }
-
-
-
 
 function parse(str) {
     const tokens = tokenize(str);
@@ -402,26 +403,17 @@ function evaluate(term, maxSteps=1000) {
     let step_count = 0;
     const steps = [];
     
-    try {
-        while (previousTerm === null || currentTerm.toString() !== previousTerm.toString()) {
-            if (step_count >= maxSteps){
-                throw new Error("Maximum call stack size exceeded");
-            }
-            steps.push(currentTerm.toString());
-            previousTerm = currentTerm;
-            currentTerm = reduce(currentTerm);
-            step_count++;
+    while (previousTerm === null || currentTerm.toString() !== previousTerm.toString()) {
+        if (step_count >= maxSteps){
+            return steps.slice(Math.max(steps.length-10, 0)).concat(["Infinite recursion reached"]);
         }
-
-        return steps;
-
-    } catch (error) {
-        if (error.message.includes("Maximum call stack size exceeded")) {
-            return steps.slice(Math.max(steps.length - 10, 0)).concat(["Infinite recursion reached"]);
-        } else {
-            throw error; 
-        }
+        steps.push(currentTerm.toString());
+        previousTerm = currentTerm;
+        currentTerm = reduce(currentTerm);
+        step_count++;
     }
+
+    return steps;
 }
 
 
