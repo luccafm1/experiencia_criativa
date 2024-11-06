@@ -34,7 +34,7 @@ function listDefinitions() {
                     </div>`;
     }
     content += `</div>
-                <textarea id="global-input" style="overflow:hidden" class="global-input" placeholder="Enter new definition or replace an existing one (e.g., 'add = λm.λn.λf.λx.((m f) ((n f) x))')"></textarea>
+                <textarea id="input" style="overflow:hidden" class="global-input" placeholder="Enter new definition or replace an existing one (e.g., 'add = λm.λn.λf.λx.((m f) ((n f) x))')"></textarea>
                 <button id="add-definition-button">Add Definition</button>`;
     
     outputDiv.innerHTML = content;
