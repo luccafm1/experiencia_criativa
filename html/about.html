@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda Calculus Interpreter</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="menu">
+        <div onclick="location.href='../index.html';">CALCULATOR</div>
+        <div>ABOUT</div>
+        <div onclick="location.href='./help.html';">HELP</div>
+    </div>
+    <div class="container">
+        <h1>ABOUT</h1>
+    
+        <div class="input-section">
+            <h3>What is it?</h3>
+            <div class="input-section" style="text-align: justify;">
+                In this site, I feature a <strong>JavaScript</strong>-written interpreter for pure untyped <strong>lambda calculus</strong>, supporting <strong>currying</strong> implementation, in applicative order. (*)(**) It leverages trees in order to create expressions. For instance, the expression <strong>`λx.(x (λy.y))`</strong> can be represented in the following tree, where `@` is an application:
+                <div class="final" style="text-align: left; justify-content: center; justify-items: center; align-items: center; align-content: center;">
+                    λx.       <- defines a bound           
+                     |                                         
+                     @        <- applies terms          
+                    / \                                 
+                   x   λy.    <- bound terms                     
+                        |                               
+                        @                               
+                        y                               
+                </div>
+                In lambda calculus, everything is a <strong>function</strong>. There are no primitive data types like integers or booleans; instead, these are encoded using functions. This function-only model allows lambda calculus to simulate computation and express logic with minimal syntax. It is famous for being the simplest, most minimalistic approach to programming languages.
+                <hr style="border-top: 3px solid black">
+                <p style="font-size: small; text-align: justify; ">(*) By this, I mean the code simulates an untyped lambda calculus environment. </p>
+                <p style="font-size: small; text-align: justify; ">(**) When I say this code supports 'currying', I mean that in this interpreter, declarations such as λabc.x are not shorthand for λa.λb.λc.x; rather, abc is treated as a single variable name. To represent a function that takes multiple arguments, you must write separate lambdas for each argument, such as λa.λb.λc.x, which corresponds to a curried function taking three arguments.</p>
+                
+                <h3 style="text-align: center;">Background</h3>
+                I began working on this project during the second half of <strong>2024</strong> with the help of my logic programming professor, <strong>Frank de Alcantara</strong>. The concepts appeared so difficult and abstract to me at first that I found the only way to properly understand them was by implementing them in a programming language I was already familiar with. Thus, I originally began working on a Pythonic interpreter that leveraged the use of function wrappers and decorators to achieve a native Python implementation of pure untyped lambda calculus.
+                <br>
+                When I first showed the Python interpreter to my professor, he immediately challenged me to build a <strong>website</strong>. (*) At first, I attempted to convert all functions and classes directly; but I gradually found out that, for the implementation he requested, it would be too great an undertaking for something that would barely fit his specifications. Instead, I rewrote the entire structure and planning of my code, instead focusing on syntax and grammar parsing directly on strings, though much of the object-oriented approach carried over to this project.
+                <hr style="border-top: 3px solid black">
+                <p style="font-size: small; text-align: left; ">(*) It was, in fact, just a suggestion, but I took it quite seriously when he said it was maybe too difficult with the time I had on my hands. </p>
+                
+                <h3 style="text-align: center;">The code</h3>
+                All that being said, the code itself works rather intuitively using an <strong>object-oriented</strong> approach. I first sketched my program idea like this:
+                <br>
+                There are four main classes: a `Parser` class, an `Expression` class, an `Application` class, and a `Variable` class. <br>
+                1. <strong>Expressions</strong> are tokenized and parsed into lambda terms.<br>
+                2. The interpreter applies function applications and performs <strong>substitutions</strong>, replacing variables with arguments.<br>
+                3. The interpreter uses <strong>beta reduction</strong> (applying functions to arguments) and <strong>alpha conversion</strong> (renaming variables) to simplify expressions.<br>
+                4. Finally, the evaluation.<br>
+                <br>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+            </div>
+        </div>
+
+        <!-- <div class="examples">
+            <h3>Example Expressions:</h3>
+            <ul>
+                <li>(add) 1 2</li>
+                <li>(mult) 2 3</li>
+                <li>(if) true 1 2</li>
+                <li>(and) true false</li>
+                <li>λx.x</li>
+                <li>λf.λx.(f x)</li>
+                <li>λm.λn.λf.λx.((m f) ((n f) x))</li>
+            </ul>
+        </div> -->
+    </div>
+
+    <div class="final">
+        <div class="license">
+    Copyright 2024 Lucca Magalhães
+
+    Permission is hereby granted, free of charge, to any 
+    person obtaining a copy of this software and associated 
+    documentation files (the “Software”), to deal in the Software 
+    without restriction, including without limitation the rights 
+    to use, copy, modify, merge, publish, distribute, sublicense, 
+    and/or sell copies of the Software, and to permit persons to 
+    whom the Software is furnished to do so, subject to the 
+    following conditions:
+        
+    The above copyright notice and this permission notice shall be 
+    included in all copies or substantial portions of the Software.
+        
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+    BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
+    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+    SOFTWARE.
+        </div>
+        <div class="author">
+            <img src="../img/image.png">
+        </div>
+    </div>
+
+    <script src="../js/lambda.js"></script>
+    <script src="../js/redirect.js"></script>
+</body>
+</html>

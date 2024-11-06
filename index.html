@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda Calculus Interpreter</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const textareas = document.querySelectorAll("textarea");
+
+            textareas.forEach(textarea => {
+                textarea.addEventListener("input", () => {
+                    const cursorPosition = textarea.selectionStart;
+                    const beforeCursor = textarea.value.slice(0, cursorPosition);
+                    const afterCursor = textarea.value.slice(cursorPosition);
+
+                    const updatedText = beforeCursor.replace(/\blambda\b/g, 'λ') + afterCursor;
+
+                    if (updatedText !== textarea.value) {
+                        textarea.value = updatedText;
+                        textarea.setSelectionRange(cursorPosition - 5, cursorPosition - 5);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="menu">
+        <div>CALCULATOR</div>
+        <div onclick="location.href='html/about.html';">ABOUT</div>
+        <div onclick="location.href='html/help.html';">HELP</div>
+    </div>
+
+    <div class="container">
+        <h1>λ Lambda Calculus Interpreter</h1>
+
+        <div class="input-section">
+            <h3>Input Expression</h3>
+            <textarea id="input" style="overflow:hidden" placeholder="Enter expression (e.g., '(add) 1 2' or 'λx.x')"></textarea>
+            <button onclick="evaluateExpression()">Evaluate</button>
+            <button onclick="showExpanded()">Show Expanded Form</button>
+            <button onclick="showSyntaxTree()">Show Syntax Tree</button>
+            <div id="error" class="error"></div>
+        </div>
+
+        <div class="output" id="output"></div>
+        <div class="output" id="expanded" style="display: none;"></div>
+
+        <div class="definitions" id="definitions">
+            
+        </div>
+
+        <!-- <div class="examples">
+            <h3>Example Expressions:</h3>
+            <ul>
+                <li>(add) 1 2</li>
+                <li>(mult) 2 3</li>
+                <li>(if) true 1 2</li>
+                <li>(and) true false</li>
+                <li>λx.x</li>
+                <li>λf.λx.(f x)</li>
+                <li>λm.λn.λf.λx.((m f) ((n f) x))</li>
+            </ul>
+        </div> -->
+    </div>
+
+    <div class="final">
+        <div class="license">
+    Copyright 2024 Lucca Magalhães
+
+    Permission is hereby granted, free of charge, to any 
+    person obtaining a copy of this software and associated 
+    documentation files (the “Software”), to deal in the Software 
+    without restriction, including without limitation the rights 
+    to use, copy, modify, merge, publish, distribute, sublicense, 
+    and/or sell copies of the Software, and to permit persons to 
+    whom the Software is furnished to do so, subject to the 
+    following conditions:
+        
+    The above copyright notice and this permission notice shall be 
+    included in all copies or substantial portions of the Software.
+        
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+    BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
+    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+    SOFTWARE.
+        </div>
+        <div class="author">
+            <img src="img/image.png">
+        </div>
+    </div>
+
+    <script src="js/lambda.js"></script>
+    <script src="js/redirect.js"></script>
+</body>
+</html>

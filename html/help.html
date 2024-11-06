@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda Calculus Interpreter</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="menu">
+        <div onclick="location.href='../index.html';">CALCULATOR</div>
+        <div onclick="location.href='./about.html';">ABOUT</div>
+        <div>HELP</div>
+    </div>
+
+    <div class="container">
+        <h1>HELP</h1>
+
+        <h3>Shortcuts</h3>
+            <div class="input-section" style="text-align: justify;">
+Typing in <strong>'lambda'</strong> on any input field will automatically replace it with <strong>'λ'</strong>.
+            </div>   
+        <h3>Syntax</h3>
+            <div class="input-section" style="text-align: justify;">
+The syntax in the code is very sensitive. Global definitions are always automatically applied, but if you want to
+write your own application from scratch inside the expression input field, you'll need to explicitly define the function
+being applied. <br><br>
+
+- typing in an expression such as <strong>'add 1 2'</strong> will automatically convert it to <strong>'(λm.λn.λf.λx.((m f) ((n f) x))) 1 2'</strong>.<br><br>
+- however, the interpreter will not see any application if you type in <strong>'λm.λn.λf.λx.((m f) ((n f) x)) 1 2'</strong>, meaning it will be ignored.<br><br>
+
+So, remember, <strong>always</strong> wrap your explicit definitions around parentheses if you want to avoid issues!
+            </div>   
+        <h3>Beware the "Y"!</h3>
+        <div class="input-section" style="text-align: justify;">
+Looking at the pure untyped lambda calculus paradigm, you might ask how does one get around <strong>loops</strong>? We naturally think first in terms of either self-referential
+functions or for/while-loops (recursive vs iterative approaches), however, in pure untyped lambda calculus we support neither self-referencing, nor is there any native support for
+iterations (goto functions). Instead, we have to get creative.<br>
+We use a trick called a <strong>fixed-point combinator</strong>. This is how we define The <strong>Y fixed-point combinator</strong>: <strong>Y = λf.(λx.(f (x x))) (λx.(f (x x)))</strong><br>
+The combinator works by passing a function as its own argument, which creates a cycle that simulates recursion. Our interpreter natively stores a Y combinator in its global definitions that
+can be called at any point in the code, featuring as well an implementation of Y for a factorial function.<br>
+But, be very mindful when using this function. It is very dangerous, and can very easily lead to infinite recursion! Whenever you must use the Y combinator, make sure to add a reachable base case.
+        </div>   
+
+        </div></div>
+
+        <!-- <div class="examples">
+            <h3>Example Expressions:</h3>
+            <ul>
+                <li>(add) 1 2</li>
+                <li>(mult) 2 3</li>
+                <li>(if) true 1 2</li>
+                <li>(and) true false</li>
+                <li>λx.x</li>
+                <li>λf.λx.(f x)</li>
+                <li>λm.λn.λf.λx.((m f) ((n f) x))</li>
+            </ul>
+        </div> -->
+    </div>
+
+    <div class="final">
+        <div class="license">
+    Copyright 2024 Lucca Magalhães
+
+    Permission is hereby granted, free of charge, to any 
+    person obtaining a copy of this software and associated 
+    documentation files (the “Software”), to deal in the Software 
+    without restriction, including without limitation the rights 
+    to use, copy, modify, merge, publish, distribute, sublicense, 
+    and/or sell copies of the Software, and to permit persons to 
+    whom the Software is furnished to do so, subject to the 
+    following conditions:
+        
+    The above copyright notice and this permission notice shall be 
+    included in all copies or substantial portions of the Software.
+        
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+    BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
+    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+    SOFTWARE.
+        </div>
+        <div class="author">
+            <img src="../img/image.png">
+        </div>
+    </div>
+
+    <script src="../js/lambda.js"></script>
+    <script src="../js/redirect.js"></script>
+</body>
+</html>
