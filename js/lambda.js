@@ -34,12 +34,29 @@ function listDefinitions() {
                     </div>`;
     }
     content += `</div>
-                <textarea id="input" style="overflow:hidden" class="global-input" placeholder="Enter new definition or replace an existing one (e.g., 'add = λm.λn.λf.λx.((m f) ((n f) x))')"></textarea>
+                <textarea id="global-input" style="overflow:hidden" class="global-input" placeholder="Enter new definition or replace an existing one (e.g., 'add = λm.λn.λf.λx.((m f) ((n f) x))')"></textarea>
                 <button id="add-definition-button">Add Definition</button>`;
     
     outputDiv.innerHTML = content;
     
     document.getElementById('add-definition-button').addEventListener('click', addDefinition);
+
+    const textarea = document.getElementById('global-input');
+    textarea.addEventListener("input", () => {
+        const cursorPosition = textarea.selectionStart;
+        const beforeCursor = textarea.value.slice(0, cursorPosition);
+        const afterCursor = textarea.value.slice(cursorPosition);
+
+        const updatedBeforeCursor = beforeCursor.replace(/\blambda\b|\\/g, 'λ');
+        const updatedText = updatedBeforeCursor + afterCursor;
+
+        const adjustment = beforeCursor.length - updatedBeforeCursor.length;
+
+        if (updatedText !== textarea.value) {
+            textarea.value = updatedText;
+            textarea.setSelectionRange(cursorPosition - adjustment, cursorPosition - adjustment);
+        }
+    });
 }
 
 function addDefinition() {
@@ -395,9 +412,9 @@ function evaluate(term) {
 
     } catch (error) {
         if (error.message.includes("Maximum call stack size exceeded")) {
-            console.error("Infinite recursion detected: Maximum call stack size exceeded");
+            console.error("Infinite recursion reached: Maximum call stack size exceeded");
 
-            return steps.slice(Math.max(steps.length - 10, 0)).concat(["Infinite recursion detected"]);
+            return steps.slice(Math.max(steps.length - 10, 0)).concat(["Infinite recursion reached"]);
         } else {
             throw error; 
         }

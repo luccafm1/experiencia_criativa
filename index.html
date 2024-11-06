@@ -15,11 +15,13 @@
                     const beforeCursor = textarea.value.slice(0, cursorPosition);
                     const afterCursor = textarea.value.slice(cursorPosition);
 
-                    const updatedText = beforeCursor.replace(/\blambda\b|\\/g, 'λ') + afterCursor;
+                    const updatedBeforeCursor = beforeCursor.replace(/\blambda\b|\\/g, 'λ');
+                    const updatedText = updatedBeforeCursor + afterCursor;
+                    const adjustment = beforeCursor.length - updatedBeforeCursor.length;
 
                     if (updatedText !== textarea.value) {
                         textarea.value = updatedText;
-                        textarea.setSelectionRange(cursorPosition - 5, cursorPosition - 5);
+                        textarea.setSelectionRange(cursorPosition - adjustment, cursorPosition - adjustment);
                     }
                 });
             });
