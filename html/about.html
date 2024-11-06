@@ -28,6 +28,9 @@
                     Around the middle of spring of 1936, Church published a paper named “An Unsolvable Problem of Elementary Number Theory,” in the American Journal of Mathematics. Followed by Alan Turing's paper published later that year, “On Computable Numbers, with an Application to the Entscheidungsproblem,” reaching the same conclusions as Church.
                     Essentially, after developing lambda calculus, Alonzo Church began studying the limits of computability in parallel with Alan Turing, who had recently invented the Turing machine. Church and Turing aimed to find out what <strong>could</strong> and what <strong>could not</strong> be computed. They discovered that the <strong>decision problem</strong> was ultimately uncomputable.
                     Because both papers were developed in parallel, we call this thesis the <strong>Church-Turing thesis</strong>.<br>
+                    Church continued to work at Princeton until 1967, when he moved to UCLA. Over his career, he published widely in logic and mathematics, 
+                    mentoring students who would go on to make substantial contributions in their own right. Church's influence extended far beyond his immediate 
+                    research, as he helped define the direction of mathematical logic and theoretical computer science for decades.<br>
                     This interpreter is therefore called the <strong>Church Interpreter</strong> in tribute to Alonzo Church's fundamental contributions to the field of Computer Science.
                     <br>
                 </div>                
@@ -58,14 +61,20 @@
                 <p style="font-size: small; text-align: left; ">(*) It was, in fact, just a suggestion, but I took it quite seriously when he said it was maybe too difficult with the time I had on my hands. </p>
                 
                 <h3 style="text-align: center;">The code</h3>
-                All that being said, the code itself works rather intuitively using an <strong>object-oriented</strong> approach. I first sketched my program idea like this:
+                All that being said, the code itself works rather intuitively using an <strong>object-oriented</strong> approach. I first sketched out my program idea like this:
                 <br>
                 There are four main classes: a `Parser` class, an `Expression` class, an `Application` class, and a `Variable` class. <br>
                 1. <strong>Expressions</strong> are tokenized and parsed into lambda terms.<br>
                 2. The interpreter applies function applications and performs <strong>substitutions</strong>, replacing variables with arguments.<br>
                 3. The interpreter uses <strong>beta reduction</strong> (applying functions to arguments) and <strong>alpha conversion</strong> (renaming variables) to simplify expressions.<br>
-                4. Finally, the evaluation.<br>
+                4. Finally, the evaluation happens at the final stage, where the steps are shown to the user.<br>
                 <br>
+                <hr style="border-top: 3px solid black">
+                <h3>Sources</h3>
+                <a href="https://plato.stanford.edu/archives/spr2022/entries/church/">[1] Stanford Encyclopedia</a><br>
+                <a href="https://en.wikipedia.org/wiki/File:Alonzo_Church.jpg">[2] Wikimedia</a><br>
+                <a href="https://frankalcantara.com/calculo-lambda-para-novatos/">[3] Frank Alcantara</a><br>
+                <a href="https://summer-school.racket-lang.org/2017/notes/mon-mor.html#%28part._.Redex__.Contexts__.Reductions__.Graphs%29">[4] Racket School</a>
             </div>
         </div>
     </div>
