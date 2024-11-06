@@ -396,24 +396,27 @@ function getSyntaxTree(term, indent = '', isLast = true) {
 }
 
 
-function evaluate(term) {
+function evaluate(term, maxSteps=1000) {
     let previousTerm = null;
     let currentTerm = term;
+    let step_count = 0;
     const steps = [];
     
     try {
         while (previousTerm === null || currentTerm.toString() !== previousTerm.toString()) {
+            if (step_count >= maxSteps){
+                throw new Error("Maximum call stack size exceeded");
+            }
             steps.push(currentTerm.toString());
             previousTerm = currentTerm;
             currentTerm = reduce(currentTerm);
+            step_count++;
         }
 
         return steps;
 
     } catch (error) {
         if (error.message.includes("Maximum call stack size exceeded")) {
-            console.error("Infinite recursion reached: Maximum call stack size exceeded");
-
             return steps.slice(Math.max(steps.length - 10, 0)).concat(["Infinite recursion reached"]);
         } else {
             throw error; 
@@ -425,8 +428,7 @@ function evaluate(term) {
 function reduce(term) {
     if (term instanceof Application) {
         if (term.function instanceof Expression) {
-            const substituted = substitute(term.function.body, term.function.variable, term.argument);
-            return reduce(substituted);
+            return substitute(term.function.body, term.function.variable, term.argument);
         } else {
             const reducedFunc = reduce(term.function);
             if (reducedFunc !== term.function) {
@@ -451,6 +453,28 @@ function reduce(term) {
         return term;
     }
 }
+
+// // Update the evaluate function to use the single-step reduction
+// function evaluate(term, maxSteps = 10) {
+//     let currentTerm = term;
+//     const steps = [currentTerm.toString()];
+    
+//     for (let step = 0; step < maxSteps; step++) {
+//         const nextTerm = reduceOnce(currentTerm);
+//         if (nextTerm.toString() === currentTerm.toString()) {
+//             break; // Normal form reached
+//         }
+//         steps.push(nextTerm.toString());
+//         currentTerm = nextTerm;
+//     }
+    
+//     if (maxSteps > 0 && steps.length === maxSteps) {
+//         steps.push("Infinite recursion reached");
+//     }
+    
+//     return steps;
+// }
+
 
 
 
