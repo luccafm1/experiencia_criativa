@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lambda Calculus Interpreter</title>
+    <title>Church Interpreter</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
 <body>
     <div class="menu">
@@ -16,6 +17,21 @@
         <h1>ABOUT</h1>
     
         <div class="input-section">
+            <h3>Lambda Calculus</h3>
+            <div class="input-section" style="display: flex; text-align: justify;">
+                <div class="text-wrapper">
+                    <figure class="float-figure">
+                    <img src="../img/favicon.ico" alt="Alonzo Church" class="float-image">
+                    <figcaption><i>Alonzo Church, mathematician and philosopher, founder of lambda calculus. Photo undated.</i></figcaption>
+                    </figure>
+                    <strong>Alonzo Church</strong> was an American mathematician best known as being the founder of <strong>lambda calculus</strong>, originally a theory of computability based around untyped functions.
+                    Around the middle of spring of 1936, Church published a paper named “An Unsolvable Problem of Elementary Number Theory,” in the American Journal of Mathematics. Followed by Alan Turing's paper published later that year, “On Computable Numbers, with an Application to the Entscheidungsproblem,” reaching the same conclusions as Church.
+                    Essentially, after developing lambda calculus, Alonzo Church began studying the limits of computability in parallel with Alan Turing, who had recently invented the Turing machine. Church and Turing aimed to find out what <strong>could</strong> and what <strong>could not</strong> be computed. They discovered that the <strong>decision problem</strong> was ultimately uncomputable.
+                    Because both papers were developed in parallel, we call this thesis the <strong>Church-Turing thesis</strong>.<br>
+                    This interpreter is therefore called the <strong>Church Interpreter</strong> in tribute to Alonzo Church's fundamental contributions to the field of Computer Science.
+                    <br>
+                </div>                
+            </div>
             <h3>What is it?</h3>
             <div class="input-section" style="text-align: justify;">
                 In this site, I feature a <strong>JavaScript</strong>-written interpreter for pure untyped <strong>lambda calculus</strong>, supporting <strong>currying</strong> implementation, in applicative order. (*)(**) It leverages trees in order to create expressions. For instance, the expression <strong>`λx.(x (λy.y))`</strong> can be represented in the following tree, where `@` is an application:

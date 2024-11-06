@@ -25,6 +25,31 @@ body {
     margin-bottom: 20px;
 }
 
+.text-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: medium;
+    line-height: 1.6;
+}
+
+.float-figure {
+    float: right;
+    margin: 10px 15px 10px 0;
+    width: 200px; 
+    text-align: justify;
+}
+
+.float-image {
+    width: 100%; 
+    height: auto;
+}
+
+.float-figure figcaption {
+    font-style: italic;
+    font-size: 10px;
+    margin: 5px 15px 0 15px;
+}
+
 .menu {
     display: flex;
     justify-content: center;
