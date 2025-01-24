@@ -140,19 +140,13 @@ function tokenize(str) {
                 i++;
             }
             tokens.push({ type: 'number', value: num });
-        } else if (/[a-zA-Z_+\-\/:*]/.test(c)) {
+        } else {
             let varName = '';
-            while (i < str.length && /[a-zA-Z_+\-\/:*]/.test(str[i])) {
+            while (i < str.length && !['λ', '.', '(', ')', ' '].includes(str[i])) {
                 varName += str[i];
                 i++;
             }
-            if (varName === 'true' || varName === 'false') {
-                tokens.push({ type: 'boolean', value: varName });
-            } else {
-                tokens.push({ type: 'variable', value: varName });
-            }
-        } else {
-            throw new Error(`Unexpected character '${c}' at position ${i}`);
+            tokens.push({ type: 'variable', value: varName });
         }
     }
     return tokens;
@@ -239,10 +233,10 @@ class Parser {
             return this.parseAbstraction();
         } else if (type === 'number') {
             this.consume();
-            return numToChurchTerm(parseInt(value, 10));
+            return numToChurch(parseInt(value, 10));
         } else if (type === 'boolean') {
             this.consume();
-            return booleanToLambdaTerm(value === 'true');
+            return booleanToChurch(value === 'true');
         } else if (type === 'variable') {
             this.consume();
             return new Variable(value);
@@ -266,10 +260,6 @@ function freeVariables(term) {
         return fv;
     }
     throw new Error("Unknown term type in free_variables");
-}
-
-function freshVariableName(){
-    
 }
 
 let counter = 0;
@@ -300,6 +290,7 @@ function substitute(term, variable, replacement) {
     }
     throw new Error("Unknown term type in substitution");
 }
+
 
 function parse(str) {
     const tokens = tokenize(str);
@@ -405,7 +396,7 @@ function evaluate(term, maxSteps=1000) {
     
     while (previousTerm === null || currentTerm.toString() !== previousTerm.toString()) {
         if (step_count >= maxSteps){
-            return steps.slice(Math.max(steps.length-10, 0)).concat(["Infinite recursion reached"]);
+            return steps.slice(Math.max(steps.length-10, 0)).concat(["Recursion limit reached"]);
         }
         steps.push(currentTerm.toString());
         previousTerm = currentTerm;
@@ -535,33 +526,13 @@ function setMode(mode) {
  * 
  */
 
-function numToChurch(num) {
-    let churchExpr = 'λf.λx.';
-
-    for (let i = 0; i < num; i++) {
-        churchExpr += 'f(';
-    }
-
-    churchExpr += 'x' + ')'.repeat(num);
-    return churchExpr;
-}
-
-function lambdaToBool(lambdaBool) {
-    if (lambdaBool instanceof Expression && lambdaBool.variable.name === 'x') {
-        if (lambdaBool.body instanceof Expression && lambdaBool.body.variable.name === 'y') {
-            return lambdaBool.body.body instanceof Variable && lambdaBool.body.body.name === 'x';
-        }
-    }
-    return false;
-}
-
-function booleanToLambdaTerm(bool) {
+function booleanToChurch(bool) {
     const x = new Variable('x');
     const y = new Variable('y');
     return new Expression(x, new Expression(y, bool ? x : y));
 }
 
-function numToChurchTerm(num) {
+function numToChurch(num) {
     const f = new Variable('f');
     const x = new Variable('x');
     let body = x;

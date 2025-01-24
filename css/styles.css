@@ -21,6 +21,13 @@ body {
     text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+    .container {
+        width: 80%;
+    }
+    
+}
+
 .input-section {
     margin-bottom: 20px;
 }
@@ -140,7 +147,17 @@ button:hover {
     border-radius: 4px;
     font-family: monospace;
     white-space: pre-wrap;
-    
+}
+
+@media screen and (max-width: 768px) {
+    .final {
+        flex-direction: column;
+        padding: 10px;
+        margin-top: 10px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .definitions {
@@ -183,19 +200,48 @@ button:hover {
     width: 50%;
 }
 
-.author {
-    width: 50%;
-    display: flex; 
-    align-items: right;
-    justify-content: right; 
-    overflow: hidden; 
-    border-radius: 4px;
+@media screen and (max-width: 768px) {
+    .license {
+        width: 100%;
+    }
 }
 
-.author img {
+.author {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.author figure {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.author figure img {
     max-width: 60%;
+    width: 100%;
     height: auto;
-    border-radius: 20px;
+    border-radius: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .author {
+        justify-content: center;
+        padding: 5px;
+    }
+    
+    .author figure img {
+        max-width: 80%;
+    }
 }
 
 .examples {
